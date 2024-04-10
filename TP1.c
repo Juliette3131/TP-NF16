@@ -49,19 +49,44 @@ sommet* rechercheSommet(graphe *g, int id){
 }
 
 void ajouterArete(graphe *g, int id1, int id2){
-  sommet* voisin1 = rechercheSommet(g, id1);
-  sommet* voisin2 = rechercheSommet(g, id2);
-  if (voisin1 == NULL || voisin2==NULL){
+  sommet* sommet1 = rechercheSommet(g, id1);
+  sommet* sommet2 = rechercheSommet(g, id2);
+  if (sommet1 == NULL || sommet2==NULL){
     printf("Un des sommets n'existe pas");
     return;
   }
-  voisin1-> voisinSuivant = voisin2;
-  voisin2-> voisinSuivant = voisin1;
-  voisin* voisin1 = malloc(sizeof(*voisin))
-  voisin1-> indice= id1
-  voisin1->
+  voisin* voisin1 = malloc(sizeof(voisin));
+  voisin* voisin2 = malloc(sizeof(voisin));
+  voisin1-> indice= id1;
+  voisin2-> indice= id2;
+  voisin2 = sommet1->voisinSuivant;
+  sommet1->voisinSuivant = voisin2;
+  voisin1 = sommet2->voisinSuivant;
+  sommet2->voisinSuivant = voisin1;
 }
 
+graphe* construireGraphe(int N){
+  graphe* nouveauGraphe = malloc(sizeof(graphe));
+  for (int i = 0; i < N; i++){
+    int nb;
+    printf("Numéro du sommet : ");
+    scanf("%d", &nb);
+    creerSommet(nouveauGraphe, nb);
+  }
+  int A;
+  printf("Nombre d'aretes: ");
+  scanf("%d", &A);
+  for (int i = 0; i < A; i++){
+    int voisin1, voisin2;
+    printf("Numéro du premier voisin : ");
+    scanf("%d", &voisin1);
+    printf("Numéro du deuxième voisin : ");
+    scanf("%d", &voisin2);
+    ajouterArete(nouveauGraphe, voisin1, voisin2);
+  }
+  return nouveauGraphe;
+}
+}
 int main(){
   
   return 0;
