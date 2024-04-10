@@ -22,7 +22,7 @@ graphe* creerGraphe(){
   if (nouveauGraphe == NULL) {
     return NULL;
   }
-  nouveauGraphe -> premier = NULL 
+  nouveauGraphe -> premier = NULL; 
   return nouveauGraphe;
 }
 
@@ -86,7 +86,7 @@ graphe* construireGraphe(int N){
   }
   return nouveauGraphe;
 }
-}
+
 int main(){
   
   return 0;
