@@ -37,6 +37,30 @@ void creerSommet(graphe* g, int id){
   nouveauSommet-> voisinSuivant = NULL;
 }
 
+sommet* rechercheSommet(graphe *g, int id){
+  sommet* sommetr = g->premier;
+  while (sommetr != NULL){
+    if (sommetr-> indice == id){
+      return sommetr;
+    }
+    sommetr = sommetr->suivant;
+  }
+  return NULL;
+}
+
+void ajouterArete(graphe *g, int id1, int id2){
+  sommet* voisin1 = rechercheSommet(g, id1);
+  sommet* voisin2 = rechercheSommet(g, id2);
+  if (voisin1 == NULL || voisin2==NULL){
+    printf("Un des sommets n'existe pas");
+    return;
+  }
+  voisin1-> voisinSuivant = voisin2;
+  voisin2-> voisinSuivant = voisin1;
+  voisin* voisin1 = malloc(sizeof(*voisin))
+  voisin1-> indice= id1
+  voisin1->
+}
 
 int main(){
   
