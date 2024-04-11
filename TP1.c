@@ -102,8 +102,26 @@ void afficherGraphe(graphe* g){
     }
     printf("\n");
     sommete = sommete -> suivant;
-  }
-  
+  }  
+}
+
+int rechercherDegre(graphe* g){
+    int b=0;
+    sommet* sommetd = g->premier;
+    while(sommetd != NULL){
+    voisin* voisinAct = sommetd->voisinSuivant;
+    int a=0;
+    while(voisinAct!= NULL){
+        a+=1;
+        voisinAct= voisinAct->voisinSuivant;
+        if(a>b){
+            b=a;
+        }
+    }
+    sommetd = sommetd -> suivant;
+    }
+    printf("%d", b);
+    return b;
 }
 
 int main(){
