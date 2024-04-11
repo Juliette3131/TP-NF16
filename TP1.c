@@ -29,7 +29,7 @@ graphe* creerGraphe(){
 void creerSommet(graphe* g, int id){
   sommet* nouveauSommet = malloc(sizeof(sommet));
   if (nouveauSommet==NULL){
-    return NULL;
+    return;
   }
   nouveauSommet-> indice = id;
   nouveauSommet -> suivant = g->premier;
@@ -56,17 +56,19 @@ void ajouterArete(graphe *g, int id1, int id2){
     return;
   }
   voisin* voisin1 = malloc(sizeof(voisin));
-  voisin* voisin2 = malloc(sizeof(voisin));
-  voisin1-> indice= id1;
-  voisin2-> indice= id2;
-  voisin2 = sommet1->voisinSuivant;
-  sommet1->voisinSuivant = voisin2;
-  voisin1 = sommet2->voisinSuivant;
+  voisin1->indice = id1;
+  voisin1->voisinSuivant = sommet2->voisinSuivant;
   sommet2->voisinSuivant = voisin1;
+
+  voisin* voisin2 = malloc(sizeof(voisin));
+  voisin2->indice = id2;
+  voisin2->voisinSuivant = sommet1->voisinSuivant;
+  sommet1->voisinSuivant = voisin2;
 }
 
 graphe* construireGraphe(int N){
   graphe* nouveauGraphe = malloc(sizeof(graphe));
+  nouveauGraphe = creerGraphe();
   for (int i = 0; i < N; i++){
     int nb;
     printf("Numéro du sommet : ");
@@ -87,7 +89,25 @@ graphe* construireGraphe(int N){
   return nouveauGraphe;
 }
 
-int main(){
+void afficherGraphe(graphe* g){
+  sommet* sommete = g->premier;
+  while(sommete != NULL){
+    printf("| \nv\n");
+    printf("%d", sommete-> indice);
+    voisin* voisinAct = sommete->voisinSuivant;
+    while(voisinAct!= NULL){
+        printf("->");
+        printf("%d", voisinAct->indice);
+        voisinAct= voisinAct->voisinSuivant;
+    }
+    printf("\n");
+    sommete = sommete -> suivant;
+  }
   
+}
+
+int main(){
+  graphe* nouveauGraphe = construireGraphe(3);
+  afficherGraphe(nouveauGraphe);
   return 0;
 }
