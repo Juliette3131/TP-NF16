@@ -124,6 +124,43 @@ int rechercherDegre(graphe* g){
     return b;
 }
 
+void supprimerSommet(graphe* g, int id) {
+    sommet* supp = rechercheSommet(g, id);
+
+    if (g->premier == supp) {
+        g->premier = supp->suivant;
+        free(supp);
+    }
+    else {
+        for (sommet* s = g->premier; s != NULL; s = s->suivant) {
+            voisin* voisinPrecedent = NULL;
+            voisin* voisinAct = s->voisinSuivant;
+            if (voisinAct->indice == id) {
+                s->voisinSuivant = voisinAct->voisinSuivant;
+                free(voisinAct);
+                continue;
+            }
+
+            while (voisinAct != NULL && voisinAct->indice != id) {
+                voisinPrecedent = voisinAct;
+                voisinAct = voisinAct->voisinSuivant;
+            }
+
+            if (voisinAct != NULL && voisinAct->indice == id) {
+                voisinPrecedent->voisinSuivant = voisinAct->voisinSuivant;
+                free(voisinAct);
+            }
+        }
+
+        sommet* precedent = g->premier;
+        while (precedent->suivant != supp) {
+            precedent = precedent->suivant;
+        }
+        precedent->suivant = supp->suivant;
+        free(supp);
+    }
+}
+
 int main(){
   graphe* nouveauGraphe = construireGraphe(3);
   afficherGraphe(nouveauGraphe);
