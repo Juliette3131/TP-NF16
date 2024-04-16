@@ -161,6 +161,23 @@ void supprimerSommet(graphe* g, int id) {
     }
 }
 
+int contientBoucle(graphe* g){
+    sommet * sommet = g->premier;
+    int a =0;
+    while (sommet != NULL) {
+        voisin* voisin = sommet->voisinSuivant;
+        while (voisin!= NULL ){
+            if (voisin->indice == sommet->indice){
+            a=1;
+            break;
+            }   
+            voisin = voisin->voisinSuivant;
+        }   
+        sommet = sommet->suivant;
+    }
+    return a;
+}
+
 int main(){
   graphe* nouveauGraphe = construireGraphe(3);
   afficherGraphe(nouveauGraphe);
