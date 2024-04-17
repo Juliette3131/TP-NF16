@@ -220,6 +220,24 @@ void supprimerSommet(Graphe* g, int id) {
     }
 }
 
+int contientBoucle(Graphe* g){
+    Sommet * sommet = g->premier;
+    int a =0;
+    while (sommet != NULL) {
+        Voisin* voisin = sommet->voisins;
+        while (voisin!= NULL ){
+            if (voisin->indice == sommet->indice){
+            a=1;
+            break;
+            }   
+            voisin = voisin->suivant;
+        }   
+        sommet = sommet->suivant;
+    }
+    return a;
+}
+
+
 void afficherMenu() {
     printf("=== Menu ===\n");
     printf("1. Créer un graphe vide\n");
