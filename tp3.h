@@ -1,14 +1,20 @@
-typedef struct voisin {
-  int indice;
-  struct voisin *voisinSuivant;
-} voisin;
+typedef struct Voisin Voisin;
+struct Voisin
+{
+    int indice;
+    Voisin *suivant;
+};
 
-typedef struct sommet {
-  int indice;
-  struct sommet *suivant;
-  voisin *voisinSuivant;
-} sommet;
+typedef struct Sommet Sommet;
+struct Sommet
+{
+    int indice;
+    Sommet *suivant;
+    Voisin *voisins;
+};
 
-typedef struct graphe {
-  sommet *premier;
-} graphe; 
+typedef struct Graphe Graphe;
+struct Graphe
+{
+    Sommet *premier;
+};
