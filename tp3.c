@@ -219,3 +219,17 @@ void supprimerSommet(Graphe* g, int id) {
         free(supp);
     }
 }
+
+void afficherMenu() {
+    printf("=== Menu ===\n");
+    printf("1. Créer un graphe vide\n");
+    printf("2. Construire un graphe de N sommets\n");
+    printf("3. Ajouter un sommet\n");
+    printf("4. Ajouter une arête\n");
+    printf("5. Afficher un graphe\n");
+    printf("6. Donner le degré maximal du graphe\n");
+    printf("7. Supprimer un sommet\n");
+    printf("8. Vérifier si le graphe contient une boucle\n");
+    printf("9. Fusionner deux sommets\n");
+    printf("9. Quitter\n");
+}
