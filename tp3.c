@@ -237,6 +237,26 @@ int contientBoucle(Graphe* g){
     return a;
 }
 
+void fusionnerSommet(Graphe* g, int idSommet1, int idSommet2) {
+    Sommet* sommet1 = rechercherSommet(g, idSommet1);
+    Sommet* sommet2 = rechercherSommet(g, idSommet2);
+ 
+    if (sommet1 == NULL || sommet2 == NULL) {
+        printf("L'un des deux sommets n'existe pas dans le graphe\n");
+        return;
+    }
+ 
+    Sommet* sommetMin = (idSommet1 < idSommet2) ? sommet1 : sommet2;
+    Sommet* sommetMax = (idSommet1 < idSommet2) ? sommet2 : sommet1;
+ 
+    Voisin* voisinCourant = sommetMax->voisins;
+    while (voisinCourant != NULL) {
+        ajouterArete(g, sommetMin->indice, voisinCourant->indice);
+        voisinCourant = voisinCourant->suivant;
+    }
+ 
+    supprimerSommet(g, sommetMax->indice);
+}
 
 void afficherMenu() {
     printf("=== Menu ===\n");
