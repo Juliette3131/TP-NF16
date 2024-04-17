@@ -177,9 +177,66 @@ int contientBoucle(graphe* g){
     }
     return a;
 }
+void afficherMenu() {
+    printf("=== Menu ===\n");
+    printf("1. Créer un graphe vide\n");
+    printf("2. Construire un graphe de N sommets\n");
+    printf("3. Ajouter un sommet\n");
+    printf("4. Ajouter une arête\n");
+    printf("5. Afficher un graphe\n");
+    printf("6. Donner le degré maximal du graphe\n");
+    printf("7. Supprimer un sommet\n");
+    printf("8. Vérifier si le graphe contient une boucle\n");
+    printf("9. Fusionner deux sommets\n");
+    printf("9. Quitter\n");
+}
 
 int main(){
-  graphe* nouveauGraphe = construireGraphe(3);
-  afficherGraphe(nouveauGraphe);
+int choix;
+
+    do {
+        afficherMenu();
+        printf("Entrez votre choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+            case 1:
+                printf("Nous allons creer un graphe vide.\n");
+                graphe* nouveauGraphe = creerGraphe();
+                break;
+            case 2:
+                printf("Nous allons construire un graphe. Combien de sommets voulez-vous qu'il comporte?\n");
+                break;
+            case 3:
+                printf("Vous avez choisi l'option 3.\n");
+                break;
+            case 4:
+                printf("Au revoir !\n");
+                break;
+            
+            case 5:
+                printf("Au revoir !\n");
+                break;
+            case 6:
+                printf("Au revoir !\n");
+                break;
+            case 7:
+                printf("Au revoir !\n");
+                break;
+            case 8:
+                printf("Au revoir !\n");
+                break;
+            case 9:
+                printf("Au revoir !\n");
+                break;
+            case 10:
+                printf("Au revoir !\n");
+                break;
+            default:
+                printf("Choix invalide. Veuillez réessayer.\n");
+                break;
+        }
+    } while (choix != 4);
+
   return 0;
 }
