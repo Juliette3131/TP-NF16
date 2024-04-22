@@ -1,48 +1,44 @@
-Graphe* creerGraphe()
-{
-    Graphe *graphe = malloc(sizeof(*graphe)); //Alloue l'espace mémoire pour insérer le prochain élément
-    Sommet *sommet = malloc(sizeof(*sommet));
-
-    if (graphe == NULL || sommet == NULL)
-    {
-        exit(EXIT_FAILURE);
-    } //Vérification que cet allouage mémoire ne pose pas problème pour éviter d'endommager l'ordinateur
-
-    sommet->indice = 1;
-    sommet->suivant = NULL;
-    sommet->voisins = NULL;
-    graphe->premier = sommet;
-
-    return graphe;
+Graphe* creerGraphe(){
+  Graphe* nouveauGraphe = malloc(sizeof(Graphe));
+  if (nouveauGraphe == NULL) {
+    return NULL;
+  }
+  nouveauGraphe -> premier = NULL; 
+  return nouveauGraphe;
 }
 
-void creerSommet(Graphe *g, int id)
-{
-    if (g == NULL){exit(EXIT_FAILURE);}
-    else
-    {
-        Sommet *ajouter_apres = g->premier;
-        int ajouter = 0;
-        while (ajouter == 0)
-        {
-            if (id == g->premier->indice) {printf("Le sommet %d existe deja\n", id); break;}
-            if (ajouter_apres->suivant == NULL || id < ajouter_apres->suivant->indice)
-            {
-                Sommet *nouveau = malloc(sizeof(*nouveau));
-                nouveau->indice = id;
-                if (ajouter_apres->suivant == NULL) nouveau->suivant = NULL;
-                else nouveau->suivant = ajouter_apres->suivant;
-                ajouter_apres->suivant = nouveau;
-                nouveau->voisins = NULL;
-                printf("Sommet %d ajoute avec succes !\n", id);
-                ajouter = 1;
-            }
-            else
-            {
-                ajouter_apres = ajouter_apres->suivant;
-            }
-        }
+void creerSommet(Graphe *g, int id) {
+    if (g == NULL) {
+        printf("Erreur : Le graphe est NULL\n");
+        return;
     }
+
+    Sommet* nouveau = malloc(sizeof(Sommet));
+    if (nouveau == NULL) {
+        printf("Erreur : Échec de l'allocation mémoire pour le nouveau sommet\n");
+        return;
+    }
+
+    nouveau->indice = id;
+
+    if (g->premier == NULL || g->premier->indice > id) {
+        nouveau->suivant = g->premier;
+        g->premier = nouveau;
+        return;
+    }
+
+    Sommet* act = g->premier;
+    while (act->suivant != NULL && act->suivant->indice < id) {
+        act = act->suivant;
+    }
+
+    if (act->suivant != NULL && act->suivant->indice == id) {
+        printf("Ce sommet existe déjà\n");
+        free(nouveau); 
+        return;
+    }
+    nouveau->suivant = act->suivant;
+    act->suivant = nouveau;
 }
 
 Sommet* rechercherSommet(Graphe *g, int id)
@@ -122,26 +118,20 @@ void ajouterArete(Graphe *g, int id1, int id2) {
     }
 }
 
-void afficherGraphe(Graphe *g)
-{
-    if (g == NULL){exit(EXIT_FAILURE);}
-    Sommet *temp = g->premier;
-    Voisin *tempV = temp->voisins;
-    while (temp != NULL)
-    {
-        printf("%d", temp->indice);
-        if (temp->voisins != NULL)
-        {
-            tempV = temp->voisins;
-            do {
-            printf("(%d)", tempV->indice);
-            tempV = tempV->suivant;}
-            while (tempV != NULL);
-        }
-        printf(" -> ");
-        temp = temp->suivant;
+void afficherGraphe(Graphe* g){
+  Sommet* sommete = g->premier;
+  while(sommete != NULL){
+    printf("| \nv\n");
+    printf("%d", sommete-> indice);
+    Voisin* voisinAct = sommete->voisins;
+    while(voisinAct!= NULL){
+        printf("->");
+        printf("%d", voisinAct->indice);
+        voisinAct= voisinAct->suivant;
     }
-    printf("NULL ------ Fin\n");
+    printf("\n");
+    sommete = sommete -> suivant;
+  }  
 }
 
 Graphe* construireGraphe(int N){
@@ -251,10 +241,11 @@ void fusionnerSommet(Graphe* g, int idSommet1, int idSommet2) {
  
     Voisin* voisinCourant = sommetMax->voisins;
     while (voisinCourant != NULL) {
+        if (voisinCourant->indice!= sommetMin->indice){
         ajouterArete(g, sommetMin->indice, voisinCourant->indice);
+        }
         voisinCourant = voisinCourant->suivant;
     }
- 
     supprimerSommet(g, sommetMax->indice);
 }
 
