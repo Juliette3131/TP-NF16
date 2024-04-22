@@ -39,7 +39,6 @@ int main(){
                 afficherGraphe(nouveauGraphe);
                 break;
             case 6:
-                printf("Le degré du graphe est de :\n");
                 int deg= rechercherDegre(nouveauGraphe);
                 printf("%d", deg);
                 break;
@@ -47,6 +46,7 @@ int main(){
                 printf("Quel sommet voulez-vous supprimer?\n");
                 int supp;
                 scanf("%d", &supp);
+                supprimerSommet(nouveauGraphe, supp);
                 break;
             case 8:
                 int n = contientBoucle(nouveauGraphe);
@@ -64,6 +64,7 @@ int main(){
                 scanf("%d", &s1);
                 printf("Nom du duexième sommet : \n");
                 scanf("%d", &s2);
+                fusionnerSommet(nouveauGraphe, s1, s2);
                 break;
             case 10:
                 printf("Au revoir !\n");
